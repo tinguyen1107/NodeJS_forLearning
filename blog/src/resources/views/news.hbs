@@ -1,1 +1,28 @@
-<h1>News Page</h1>
+<div class='bg-dark py-2'>
+    <div class="container-fluid">
+        <h1 class='display-5 fw-bolder text-white mb-2'>Courses</h1>    
+    </div>
+</div>
+
+<div class="container-fluid new-content-view">
+    <div class="row">
+
+        {{#each course}}
+        <div class="card card-course-item" style="width: 18rem;">
+            <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{this.name}}</h5>
+                <p class="card-text mb-0">Author: {{this.description}}</p>
+                <p class="card-text">Semester: {{this.semester}}, in year: {{this.year}}</p>
+                {{!-- <a href="/home" class="btn btn-primary">Learn</a> --}}
+            </div>
+            <div class="card-bottom card-bottom-item">
+                <div class="row gx-5 justify-content-end">
+                    <a href="/courses/{{this.slug}}" class="w-50 btn btn-primary">Learn</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+    </div>
+</div>

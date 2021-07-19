@@ -1,34 +1,41 @@
-const express = require('express')
-const handlebars = require('express-handlebars')
-const morgan = require('morgan')
-const path = require('path')
+const express = require('express');
+const handlebars = require('express-handlebars');
+const morgan = require('morgan');
+const path = require('path');
 
-const route = require('./routes')
+const route = require('./routes');
+const db = require('./config/db')
 
-const app = express()
-const port = 7000
+db.connect()
 
-app.use(express.urlencoded({
-    extended: true
-}))
+const app = express();
+const port = 7000;
 
-app.use(express.json())
+app.use(
+  express.urlencoded({
+    extended: true,
+  }),
+);
 
+app.use(express.json());
 
-app.engine('hbs', handlebars({
-    extname: '.hbs'
-}))
+app.engine(
+  'hbs',
+  handlebars({
+    extname: '.hbs',
+  }),
+);
 
-app.set('view engine', 'hbs')
-app.set('views', path.join(__dirname, 'resources/views'))
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'resources', 'views'));
 
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')));
 
 // HTTP logger
-app.use(morgan('combined'))
+app.use(morgan('combined'));
 
-route(app)
+route(app);
 
 app.listen(port, () => {
-    console.log('listening at http://localhost:${port}')
-})
+  console.log('listening at http://localhost:${port}');
+});

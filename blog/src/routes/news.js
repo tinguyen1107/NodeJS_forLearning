@@ -1,9 +1,12 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router();
 
-const newsController = require('../app/controllers/NewsController')
+const newsController = require('../app/controllers/NewsController');
 
-router.use('/:slug', newsController.show)
-router.use('/', newsController.index)
+router.get('/:slug', newsController.show);
+router.get('/', newsController.index);
 
-module.exports = router
+module.exports = router;
+
+
+// PG 2 3 6 7 4 9 8  

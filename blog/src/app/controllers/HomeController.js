@@ -1,9 +1,11 @@
-class HomeController {
+// const course = require('../models/Course')
+// const { multipleMongooseToObject } = require('../../util/mongoose')
 
-    // [GET] /home
-    index (req, res) {
-        res.render('home')
-    }
+class HomeController {
+  // [GET] /home
+  index(req, res, next) {
+    res.render('home');
+  }
 }
 
-module.exports = new HomeController
+module.exports = new HomeController();

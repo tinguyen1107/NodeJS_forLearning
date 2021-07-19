@@ -1,8 +1,45 @@
 @import 'variables';
 
-h1 {
-    color: red;
+.card-course-item {
+  // margin: 16;
+  margin-top: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-bottom: 16px;
 }
-header {
-    color: blue;
+
+.card-bottom-item {
+  // margin: 16;
+  margin-top: 16px;
+  margin-left: 16px;
+  margin-right: 32px;
+  margin-bottom: 16px;
+}
+
+
+.title-item {
+  margin-top: 50px;
+  // margin-bottom: 50px;
+}
+
+.main-title-item {
+  height: 90%;
+}
+
+.new-content-view {
+  height: 45vw;
+}
+
+.contrainst-item{
+  margin-right: 0;
+}
+
+.ms-1 {
+  margin-right: 30;
+}
+
+.input-text-item {
+  margin-top: 16;
+  // margin-left: 30;
+  width: 50%;
 }
