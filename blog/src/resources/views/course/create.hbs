@@ -1,0 +1,53 @@
+<div class="mt-5 view-item">
+    <div class="container-fluid">
+        <div class="container align-self-center w-50 h-100">
+            <h3 class="mb-4">Register course</h3>
+
+            <form method="POST" action="/courses/store">
+                <div class="mb-3">
+                    <label class="form-label">Course's name</label>
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <input type="text" class="form-control" id="description" name="description">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Author</label>
+                    <input type="text" class="form-control" id="author" name="author">
+                </div>
+                <div class="row align-items-start">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label clasos="form-label">Semester</label>
+                            <select class="form-select form-control" id="semester" name="semester">
+                                <option selected>Choose semester ...</option>
+                                <option value="1">Semester 1</option>
+                                <option value="2">Semester 2</option>
+                                <option value="3">Semester 3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Year</label>
+                            <select type="text" class="form-select form-control" id="year" name="year">
+                                <option selected>Choose year ...</option>
+                                <option value="1">Year 1</option>
+                                <option value="2">Year 2</option>
+                                <option value="3">Year 3</option>
+                                <option value="4">Year 4</option>
+                                <option value="5">Higher</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <label class="form-label">Video</label>
+                    <input type="text" class="form-control" id="video" name="video">
+                </div>
+                <button type="submit" class="btn btn-primary mb-5 align-self-center w-25">Add Course</button>
+            </form>
+        </div>
+    </div>
+</div>

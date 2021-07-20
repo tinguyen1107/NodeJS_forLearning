@@ -1,0 +1,97 @@
+<div class='bg-dark py-3'>
+    <div class="container-fluid ml-5">
+        <h1 class='display-5 fw-bolder text-white mb-2'>Trash courses</h1>    
+    </div>
+</div>
+{{!-- <div class="container"> --}}
+<div class="container-fluid pl-5 ">
+    <table class="table align-middle">
+        <thead>
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col" class="col-5">Course's name</th>
+                <th scope="col" class="col-3">Author</th>
+                <th scope="col" class="col-1">Semester</th>
+                <th scope="col" class="col-1">Year</th>
+                <th scope="col" class="col-2"></th>
+            </tr>
+        </thead>
+
+        {{#each course}}
+        <tbody>
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.author}}</td>
+                <td>{{this.semester}}</td>
+                <td>{{this.year}}</td>
+                <td class="align-middle">
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <a class="btn btn-outline-warning btn-restore-course ml-2 mr-2 w-100" data-id={{this._id}}>Restore</a>
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-outline-danger ml-2 w-100" data-id={{this._id}} data-toggle="modal" data-target="#confirm-to-delete">Delete</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        {{else}}
+            <tr>
+                <td colspan="6" class="text-center">
+                    There are no courses have been deleted.
+                </td>
+            </tr>
+        {{/each}}
+
+    </table>
+</div>
+
+<div id="confirm-to-delete" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Are you sure to delete it permanently?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <a id="btn-delete-course" type="button" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form name="restore-course-form" method="POST"></form>
+<form name="delete-course-form" method="POST"></form>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var courseId
+        
+        var deleteForm = document.forms['delete-course-form']
+        var btnDeleteCourse = document.getElementById('btn-delete-course')
+
+        var btnRestoreCourse = $('.btn-restore-course')
+        var restoreForm = document.forms['restore-course-form']
+
+        $('#confirm-to-delete').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            courseId = button.data('id')
+        })
+
+        btnDeleteCourse.onclick = function () {
+            deleteForm.action = '/courses/' + courseId + '?_method=DELETE'
+            deleteForm.submit()
+        }
+
+        btnRestoreCourse.click(function(event) {
+            event.preventDefault()
+            restoreForm.action = '/courses/' + $(this).data('id') + '/restore?_method=PATCH'
+            restoreForm.submit()
+        })
+    })
+
+</script>

@@ -1,12 +1,12 @@
-const course = require('../models/Course')
+const Course = require('../models/Course')
 const { multipleMongooseToObject } = require('../../util/mongoose')
 
-class NewsController {
+class CoursesController {
   // [GET] /news
   index(req, res, next) {
-    course.find({})
+    Course.find({})
       .then(courses => {
-        res.render('news', {
+        res.render('courses', {
           course: multipleMongooseToObject(courses),
         })
       })
@@ -14,10 +14,6 @@ class NewsController {
 
     // res.render('news');
   }
-
-  show(req, res) {
-    res.send('NOT EXIST!');
-  }
 }
 
-module.exports = new NewsController();
+module.exports = new CoursesController();

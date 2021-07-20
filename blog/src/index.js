@@ -1,6 +1,8 @@
 const express = require('express');
 const handlebars = require('express-handlebars');
 const morgan = require('morgan');
+
+const methodOverride = require('method-override')
 const path = require('path');
 
 const route = require('./routes');
@@ -19,10 +21,20 @@ app.use(
 
 app.use(express.json());
 
+app.use(methodOverride('_method'))
+
 app.engine(
   'hbs',
   handlebars({
     extname: '.hbs',
+    helpers: {
+      sum: (a, b) => a + b,
+      select: ( value, options ) => {
+        return options.fn(this).replace(
+          new RegExp(' value=\"' + value + '\"'),
+          '$& selected="selected"');
+      },
+    }
   }),
 );
 
