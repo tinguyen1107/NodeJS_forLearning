@@ -4,7 +4,8 @@
     </div>
 </div>
 
-<form class="container-fluid pl-5 pr-5" name="container-form-fullview" method="POST" action="/courses/handle-form-actions">
+{{!-- <div class="container"> --}}
+<form class="container-fluid pl-5 pr-5" name="container-form-fullview" method="POST" action="/courses/trash/handle-form-actions">
     <div class="d-flex align-items-center justify-content-end mt-3 mb-2">
         <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="check-box-all">
@@ -15,7 +16,7 @@
 
         <select class="form-select form-control-sm select-form-option" name="action">
             {{!-- <option selected>{{course.semester}}</option> --}}
-            
+
             <option value="restore">Restore</option>
             <option value="delete">Delete</option>
             <option value="2">more function</option>
@@ -24,7 +25,7 @@
         <button type="submit" class="btn btn-primary button-handle-checked disabled">Handle</button>
     </div>
 
-{{!-- TABLE HERE --}}
+ {{!-- TABLE HERE --}}
     <table class="table align-middle">
         <thead>
             <tr>
@@ -48,10 +49,10 @@
                         </label>
                     </div>
                 </th>
-                <td class="align-middle">{{this.name}}</td>
-                <td class="align-middle">{{this.author}}</td>
-                <td class="align-middle">{{this.semester}}</td>
-                <td class="align-middle">{{this.year}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.author}}</td>
+                <td>{{this.semester}}</td>
+                <td>{{this.year}}</td>
                 <td class="align-middle">
                     <div class="row justify-content-center">
                         <div class="col">
@@ -99,15 +100,15 @@
         var courseId
         
         var deleteForm = document.forms['delete-course-form']
-        var containerForm = document.forms['container-form-fullview']
-
         var btnDeleteCourse = document.getElementById('btn-delete-course')
 
-        var btnRestoreCourse = $('.btn-restore-course')
         var restoreForm = document.forms['restore-course-form']
+        var btnRestoreCourse = $('.btn-restore-course')
 
         var checkBoxAll = $('#check-box-all')
         var checkBoxCourses = $('input[name="courseIds[]"]')
+
+        var containerForm = document.forms['container-form-fullview']
         var buttonHandle = $('.button-handle-checked')
 
         $('#confirm-to-delete').on('show.bs.modal', function (event) {
@@ -126,7 +127,7 @@
             restoreForm.submit()
         })
 
-         checkBoxAll.click(function () {
+        checkBoxAll.click(function () {
             var isCheckedAll = $(this).prop('checked')
             checkBoxCourses.prop('checked', isCheckedAll)
             renderHandleButton ()
@@ -155,7 +156,7 @@
             if (isSubmitable) {
                 containerForm.submit()
             }
-
+        })
     })
 
 </script>
