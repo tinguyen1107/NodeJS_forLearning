@@ -5,7 +5,7 @@ class CourseController {
 
   // [GET] /courses/create
   create (req, res, next) {
-    res.redirect('/me/stored/courses')
+    res.render('course/create')
   }
 
   // [GET] /courses/:slug
@@ -69,6 +69,19 @@ class CourseController {
     Course.restore({ _id: req.params.id })
       .then(() => res.redirect('back'))
       .catch(next)
+  }
+
+  /// [POST] /courses/handle-form-actions
+  handleFormActions (req, res, next) {
+    switch (req.body.action) {
+      case 'remove':
+        Course.delete({ _id: { $in: req.body.courseIds } })
+          .then(() => res.redirect('back'))
+          .catch(next)
+        break
+      default:
+        res.json({ message: 'Action not found!' })
+    }
   }
 
 }

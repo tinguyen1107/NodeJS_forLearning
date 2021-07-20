@@ -3,8 +3,28 @@
         <h1 class='display-5 fw-bolder text-white mb-2'>Trash courses</h1>    
     </div>
 </div>
-{{!-- <div class="container"> --}}
-<div class="container-fluid pl-5 ">
+
+<form class="container-fluid pl-5 pr-5" name="container-form-fullview" method="POST" action="/courses/handle-form-actions">
+    <div class="d-flex align-items-center justify-content-end mt-3 mb-2">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="check-box-all">
+            <label class="form-check-label" for="check-box-all">
+                Check all courses
+            </label>
+        </div>
+
+        <select class="form-select form-control-sm select-form-option" name="action">
+            {{!-- <option selected>{{course.semester}}</option> --}}
+            
+            <option value="restore">Restore</option>
+            <option value="delete">Delete</option>
+            <option value="2">more function</option>
+        </select>
+
+        <button type="submit" class="btn btn-primary button-handle-checked disabled">Handle</button>
+    </div>
+
+{{!-- TABLE HERE --}}
     <table class="table align-middle">
         <thead>
             <tr>
@@ -20,11 +40,18 @@
         {{#each course}}
         <tbody>
             <tr>
-                <th scope="row">{{sum @index 1}}</th>
-                <td>{{this.name}}</td>
-                <td>{{this.author}}</td>
-                <td>{{this.semester}}</td>
-                <td>{{this.year}}</td>
+                <th scope="row" class="align-middle">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="courseIds[]" value="{{this._id}}">
+                        <label class="form-check-label">
+                            {{sum @index 1}}
+                        </label>
+                    </div>
+                </th>
+                <td class="align-middle">{{this.name}}</td>
+                <td class="align-middle">{{this.author}}</td>
+                <td class="align-middle">{{this.semester}}</td>
+                <td class="align-middle">{{this.year}}</td>
                 <td class="align-middle">
                     <div class="row justify-content-center">
                         <div class="col">
@@ -46,7 +73,7 @@
         {{/each}}
 
     </table>
-</div>
+</form>
 
 <div id="confirm-to-delete" class="modal" tabindex="-1">
   <div class="modal-dialog">
@@ -72,10 +99,16 @@
         var courseId
         
         var deleteForm = document.forms['delete-course-form']
+        var containerForm = document.forms['container-form-fullview']
+
         var btnDeleteCourse = document.getElementById('btn-delete-course')
 
         var btnRestoreCourse = $('.btn-restore-course')
         var restoreForm = document.forms['restore-course-form']
+
+        var checkBoxAll = $('#check-box-all')
+        var checkBoxCourses = $('input[name="courseIds[]"]')
+        var buttonHandle = $('.button-handle-checked')
 
         $('#confirm-to-delete').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
@@ -92,6 +125,37 @@
             restoreForm.action = '/courses/' + $(this).data('id') + '/restore?_method=PATCH'
             restoreForm.submit()
         })
+
+         checkBoxAll.click(function () {
+            var isCheckedAll = $(this).prop('checked')
+            checkBoxCourses.prop('checked', isCheckedAll)
+            renderHandleButton ()
+        })
+
+        checkBoxCourses.click(function () {
+            var checkedLength = $('input[name="courseIds[]"]:checked').length
+            var isCheckedAll = checkBoxCourses.length === checkedLength
+            checkBoxAll.prop('checked', isCheckedAll)
+            renderHandleButton ()
+        })
+
+        function renderHandleButton () {
+            var checkedLength = $('input[name="courseIds[]"]:checked').length
+            if (checkedLength > 0) {
+                buttonHandle.removeClass('disabled')
+            } else {
+                buttonHandle.addClass('disabled')
+            }
+        }
+
+        buttonHandle.click(function (event) {
+            event.preventDefault()
+
+            var isSubmitable = !$(this).hasClass('disabled')
+            if (isSubmitable) {
+                containerForm.submit()
+            }
+
     })
 
 </script>
