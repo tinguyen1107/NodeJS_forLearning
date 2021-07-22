@@ -25,6 +25,13 @@ class MeController {
             .catch(next)
         // res.render('me/trashCourses')
     }
+
+    // [GET] testing
+    test (req, res, next) {
+        res.json({
+            message: 'HEllO WORLD',
+        })
+    }
 }
 
 module.exports = new MeController();

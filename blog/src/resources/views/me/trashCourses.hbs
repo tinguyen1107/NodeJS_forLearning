@@ -22,7 +22,7 @@
             <option value="2">more function</option>
         </select>
 
-        <button type="submit" class="btn btn-primary button-handle-checked disabled">Handle</button>
+        <button type="submit" class="btn btn-primary button-handle-checked" disabled>Handle</button>
     </div>
 
  {{!-- TABLE HERE --}}
@@ -30,11 +30,11 @@
         <thead>
             <tr>
                 <th scope="col">No</th>
-                <th scope="col" class="col-5">Course's name</th>
-                <th scope="col" class="col-3">Author</th>
-                <th scope="col" class="col-1">Semester</th>
-                <th scope="col" class="col-1">Year</th>
-                <th scope="col" class="col-2"></th>
+                <th scope="col" class="">Course's name</th>
+                <th scope="col" class="">Author</th>
+                <th scope="col" class="">Semester</th>
+                <th scope="col" class="">Year</th>
+                <th scope="col" class=""></th>
             </tr>
         </thead>
 
@@ -142,17 +142,12 @@
 
         function renderHandleButton () {
             var checkedLength = $('input[name="courseIds[]"]:checked').length
-            if (checkedLength > 0) {
-                buttonHandle.removeClass('disabled')
-            } else {
-                buttonHandle.addClass('disabled')
-            }
+            buttonHandle.attr('disabled', !(checkedLength > 0))
         }
 
         buttonHandle.click(function (event) {
             event.preventDefault()
-
-            var isSubmitable = !$(this).hasClass('disabled')
+            var isSubmitable = !$(this).attr('disabled')
             if (isSubmitable) {
                 containerForm.submit()
             }
